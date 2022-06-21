@@ -33,9 +33,10 @@ func (server *Server) Initialize(DbUser, DbPassword, DbName string) {
 	collection := client.Database(DbName)
 	server.DB = collection
 	server.Router = mux.NewRouter()
+	server.InitializeRouter()
 }
 
 func (server *Server) Run(addr string) {
-	fmt.Println("Listening to port 5000")
+	fmt.Println("Listening to port 8000")
 	log.Fatal(http.ListenAndServe(addr, server.Router))
 }
