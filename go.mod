@@ -3,6 +3,7 @@ module github.com/luannv1203/golang
 go 1.15
 
 require (
+	github.com/gin-gonic/gin v1.8.1
 	github.com/go-playground/validator/v10 v10.11.0 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/gofiber/fiber/v2 v2.34.1 // indirect

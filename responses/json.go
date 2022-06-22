@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-func JSON(w http.ResponseWriter, statusCode int, data interface{}) {
-	w.WriteHeader(statusCode)
-	err := json.NewEncoder(w).Encode(data)
+func JSON(c gin.ResponseWriter, statusCode int, data interface{}) {
+	c.WriteHeader(statusCode)
+	err := json.NewEncoder(c).Encode(data)
 	if err != nil {
-		fmt.Fprint(w, "%s", err.Error())
+		fmt.Fprint(c, "%s", err.Error())
 	}
 }
 func JSONPAGINATION(w http.ResponseWriter, statusCode int, data interface{}, pagination interface{}) {
@@ -28,14 +30,14 @@ func JSONPAGINATION(w http.ResponseWriter, statusCode int, data interface{}, pag
 	}
 }
 
-func ERROR(w http.ResponseWriter, statusCode int, err error) {
+func ERROR(c gin.ResponseWriter, statusCode int, err error) {
 	if err != nil {
-		JSON(w, statusCode, struct {
+		JSON(c, statusCode, struct {
 			Error string `json:"error"`
 		}{
 			Error: err.Error(),
 		})
 		return
 	}
-	JSON(w, http.StatusBadRequest, nil)
+	JSON(c, http.StatusBadRequest, nil)
 }
