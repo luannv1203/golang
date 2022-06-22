@@ -8,12 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func JSON(c gin.ResponseWriter, statusCode int, data interface{}) {
-	c.WriteHeader(statusCode)
-	err := json.NewEncoder(c).Encode(data)
-	if err != nil {
-		fmt.Fprint(c, "%s", err.Error())
-	}
+func JSON(c *gin.Context, statusCode int, data interface{}, message string) {
+	c.JSON(http.StatusOK, gin.H{
+		"status":  statusCode,
+		"message": message,
+		"data":    data,
+	})
 }
 func JSONPAGINATION(w http.ResponseWriter, statusCode int, data interface{}, pagination interface{}) {
 	fmt.Println(w)
@@ -30,14 +30,18 @@ func JSONPAGINATION(w http.ResponseWriter, statusCode int, data interface{}, pag
 	}
 }
 
-func ERROR(c gin.ResponseWriter, statusCode int, err error) {
+func ERROR(c *gin.Context, statusCode int, err error) {
 	if err != nil {
-		JSON(c, statusCode, struct {
-			Error string `json:"error"`
-		}{
-			Error: err.Error(),
+		c.JSON(statusCode, gin.H{
+			"status":  statusCode,
+			"message": "",
+			"data": struct {
+				Error string `json:"error"`
+			}{
+				Error: err.Error(),
+			},
 		})
 		return
 	}
-	JSON(c, http.StatusBadRequest, nil)
+	JSON(c, http.StatusBadRequest, nil, "")
 }

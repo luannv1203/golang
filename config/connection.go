@@ -15,11 +15,11 @@ type Config struct {
 }
 
 func (c *Config) Initialize(DbUser, DbPassword, DbName string) {
-	credential := options.Credential{
-		Username: DbUser,
-		Password: DbPassword,
-	}
-	clientOption := options.Client().ApplyURI("mongodb://localhost:27017/").SetAuth(credential)
+	// credential := options.Credential{
+	// 	Username: DbUser,
+	// 	Password: DbPassword,
+	// }
+	clientOption := options.Client().ApplyURI("mongodb://localhost:27017/")
 
 	client, err := mongo.Connect(context.TODO(), clientOption)
 

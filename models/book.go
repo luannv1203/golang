@@ -29,7 +29,6 @@ func (b *Book) FindBooks(c *gin.Context) (*[]Book, error) {
 	fmt.Println(c.DefaultQuery("size", "10"))
 	books := []Book{}
 	list, err := collection.Find(context.TODO(), bson.M{})
-
 	if err != nil {
 		return &books, err
 	}

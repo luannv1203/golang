@@ -8,5 +8,5 @@ import (
 )
 
 func Home(c *gin.Context) {
-	responses.JSON(c.Writer, http.StatusOK, "Welcome to this Awesome API")
+	responses.JSON(c, http.StatusOK, "Welcome to this Awesome API", "")
 }

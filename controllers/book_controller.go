@@ -13,8 +13,8 @@ func GetListBooks(c *gin.Context) {
 
 	listBooks, err := book.FindBooks(c)
 	if err != nil {
-		responses.JSON(c.Writer, http.StatusBadRequest, err)
+		responses.JSON(c, http.StatusBadRequest, err, "")
 	}
 
-	responses.JSON(c.Writer, http.StatusOK, listBooks)
+	responses.JSON(c, http.StatusOK, listBooks, "All Books")
 }
